@@ -70,7 +70,7 @@ namespace cis237assignment2
                         /// Tell the instance to solve the first maze with the passed maze, and start coordinates.
                         /// </summary>
                         mazeSolver.SolveMaze(maze1, X_START, Y_START);
-                        choice = ui.MazePrompt();
+                        choice = 5;
                         break;
                     case "3":
                         maze2 = transposeMaze(maze1);
@@ -80,7 +80,7 @@ namespace cis237assignment2
                     case "4":
                         //Solve the transposed maze.
                         mazeSolver.SolveMaze(maze2, X_START, Y_START);
-                        choice = ui.MazePrompt();
+                        choice = 5;
                         break;
                     case "5":
                         break;
@@ -121,8 +121,8 @@ namespace cis237assignment2
                     newMaze[a, b] = mazeToTranspose[b, a];      //the actual transposition; the axes are swapped for the new array
                     b++;                                        //increments b by one so that every member of one x-axis is read
                 }
-                a++;                                            //increments a by one so that every member of one y-axis is read
-                b = 0;                                          //resets b so that the index will not be out of range when the program goes back in the x-axis while loop and that the loop will be entered in the first place
+                a++;                                            //increments int a by one so that every member of one y-axis is read
+                b = 0;                                          //resets int b so that the index will not be out of range when the program goes back in the x-axis while loop and that the loop will be entered in the first place
             }
             return newMaze;                                     //returns the value of the new maze
         }

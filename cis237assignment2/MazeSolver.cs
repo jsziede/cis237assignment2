@@ -22,6 +22,11 @@ namespace cis237assignment2
         char[,] maze;
         int xStart;
         int yStart;
+        int a;
+        int b;
+        char[,] currentLocation = new char[12, 12];
+
+        UI ui = new UI();
 
         /// <summary>
         /// Default Constuctor to setup a new maze solver.
@@ -48,6 +53,9 @@ namespace cis237assignment2
             this.yStart = yStart;
 
             //Do work needed to use mazeTraversal recursive call and solve the maze.
+            a = yStart;
+            b = xStart;
+            mazeTraversal();
         }
 
 
@@ -55,11 +63,107 @@ namespace cis237assignment2
         /// This should be the recursive method that gets called to solve the maze.
         /// Feel free to change the return type if you like, or pass in parameters that you might need.
         /// This is only a very small starting point.
+        /// 
+        /// I'm not sure if doing a giant if/else structure was the most efficient way of doing this but it seems to work.
+        /// Essentially what is happening is that the program will check East, South, West, or North, but only one at a time.
+        /// The solver will only advance through paths that are marked with either a '.' or an 'X'.
+        /// Every single step that the solver takes will result in going through the method once more until the end has been reached.
+        /// Every step will manipulate the coordinate of the solver in either the x-axis or the y-axis.
+        /// Eventually one of the coordinates will reach either a 0 or an 11 in ether axis, which tells the program that the end of the maze has been reached.
         /// </summary>
         private void mazeTraversal()
         {
             //Implement maze traversal recursive call
+            if (a <= 11 || a > 0 || b <= 11 || b > 0)  //base case which determines that the goal is reached when any coordinate is on the very edge of the maze
+            {
+                if (a == 11 || b == 11)     //final step of the maze that can only run if the coordinate is on the edge of the maze
+                {
+                    maze[a, b] = 'X';
+                    ui.PrintMaze(maze);
+                    ui.Solved();    //simple Console.WriteLine telling the user that the maze is solved
+                    a++;
+                    b++;
+                }
+                else if (maze[a, b + 1] != '#' && maze[a, b + 1] == '.' && maze[a, b + 1] != '0')         //check east
+                {
 
+                    maze[a, b] = 'X';   //the current position is marked with a successful X
+                    b++;    //coord is updated to reflect the path
+                    ui.PrintMaze(maze); //maze is printed to the console with the new X
+                    ui.MazeSteps(); //user is prompted to see the next step
+                    mazeTraversal();    //recursion happens
+                }
+                else if (maze[a + 1, b] != '#' && maze[a + 1, b] == '.' && maze[a + 1, b] != '0')         //check south 
+                {
+
+                    maze[a, b] = 'X';
+                    a++;
+                    ui.PrintMaze(maze);
+                    ui.MazeSteps();
+                    mazeTraversal();
+                }
+                else if (maze[a, b - 1] != '#' && maze[a, b - 1] == '.' && maze[a, b - 1] != '0')         //check west
+                {
+
+                    maze[a, b] = 'X';
+                    b--;
+                    ui.PrintMaze(maze);
+                    ui.MazeSteps();
+                    mazeTraversal();
+                }
+                else if (maze[a - 1, b] != '#' && maze[a - 1, b] == '.' && maze[a - 1, b] != '0')         //check north
+                {
+
+                    maze[a, b] = 'X';
+                    a--;
+                    ui.PrintMaze(maze);
+                    ui.MazeSteps();
+                    mazeTraversal();
+                }
+                else if (maze[a, b + 1] != '#' && maze[a, b + 1] == 'X')         //check east if dead end
+                {
+                    maze[a, b] = '0';   //the current position is marked with an unsuccessful 0
+                    b++;
+                    ui.PrintMaze(maze);
+                    ui.MazeSteps();
+                    mazeTraversal();
+                }
+                else if (maze[a + 1, b] != '#' && maze[a + 1, b] == 'X')         //check south if dead end
+                {
+
+                    maze[a, b] = '0';
+                    a++;
+                    ui.PrintMaze(maze);
+                    ui.MazeSteps();
+                    mazeTraversal();
+                }
+                else if (maze[a, b - 1] != '#' && maze[a, b - 1] == 'X')         //check west if dead end
+                {
+
+                    maze[a, b] = '0';
+                    b--;
+                    ui.PrintMaze(maze);
+                    ui.MazeSteps();
+                    mazeTraversal();
+                }
+                else if (maze[a - 1, b] != '#' && maze[a - 1, b] == 'X')         //check north if dead end
+                {
+
+                    maze[a, b] = '0';
+                    a--;
+                    ui.PrintMaze(maze);
+                    ui.MazeSteps();
+                    mazeTraversal();
+                }
+                else if (a == yStart && b == xStart)    //emergency code only ran if there is no exit.
+                {
+                    maze[a, b] = 'X';
+                    ui.PrintMaze(maze);
+                    ui.NotSolved();
+                    a = 0;
+                    b = 0;
+                }
+            }
         }
     }
 }

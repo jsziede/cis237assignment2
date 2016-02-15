@@ -25,6 +25,9 @@ namespace cis237assignment2
             this.maze = maze;
         }
 
+        public UI()
+        { }
+
         public int MazePrompt()
         {
             this.printMazePrompt();
@@ -38,6 +41,25 @@ namespace cis237assignment2
                 promptResponse = Console.ReadLine();                                                                    //program records the user's response again
             }
             return Int32.Parse(promptResponse);                                                                         //returns any valid response from the user
+        }
+
+
+        public void MazeSteps()
+        {
+            Console.WriteLine("Press Enter to see the next step.");
+            Console.ReadLine();
+        }
+
+        public void Solved()
+        {
+            Console.WriteLine("The maze has been solved." + Environment.NewLine + "Press Enter to close.");
+            Console.ReadLine();
+        }
+
+        public void NotSolved()
+        {
+            Console.WriteLine("Error: No solution found." + Environment.NewLine + "Press Enter to close.");
+            Console.ReadLine();
         }
 
         public void PrintMaze(char[,] maze) //a near-identical method can be found in Program.cs with an explanation of the steps
