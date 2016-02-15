@@ -1,4 +1,4 @@
-﻿//Joshua Sziede
+//Joshua Sziede
 
 using System;
 using System.Collections.Generic;

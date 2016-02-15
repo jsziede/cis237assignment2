@@ -3,6 +3,7 @@
 ## Due 02-15-2016
 
 ## Author
+Joshua Sziede
 
 ## Description
 
@@ -27,6 +28,8 @@ It might be useful while developing this program to use a smaller sized maze, an
 Don't forget that you must have a base case for your recursive method or you will continue to get a stack overflow. 
 
 ## Outside Resources Used
+# https://www.cs.bu.edu/teaching/alg/maze/
+Very useful for learning about the logic required for this program and helped a lot with how I planned the recursion method
 
 ## Known Problems, Issues, And/Or Errors in the Program
-
+#None that I know of
