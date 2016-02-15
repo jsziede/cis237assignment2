@@ -1,4 +1,6 @@
-﻿using System;
+﻿//Joshua Sziede
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,7 +17,7 @@ namespace cis237assignment2
     class MazeSolver
     {
         /// <summary>
-        /// Class level memeber variable for the mazesolver class
+        /// Class level member variable for the mazesolver class
         /// </summary>
         char[,] maze;
         int xStart;
@@ -57,6 +59,7 @@ namespace cis237assignment2
         private void mazeTraversal()
         {
             //Implement maze traversal recursive call
+
         }
     }
 }

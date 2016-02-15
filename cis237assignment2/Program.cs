@@ -1,4 +1,6 @@
-﻿using System;
+﻿//Joshua Sziede
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -47,16 +49,47 @@ namespace cis237assignment2
             MazeSolver mazeSolver = new MazeSolver();
 
             /// <summary>
-            /// Tell the instance to solve the first maze with the passed maze, and start coordinates.
+            /// Create a new instance of a ui.
             /// </summary>
-            mazeSolver.SolveMaze(maze1, X_START, Y_START);
+            UI ui = new UI(maze1);
 
             //Create the second maze by transposing the first maze
             char[,] maze2 = transposeMaze(maze1);
 
-            //Solve the transposed maze.
-            mazeSolver.SolveMaze(maze2, X_START, Y_START);
-
+            int choice = ui.MazePrompt();
+            while (choice != 5)
+            {
+                switch (choice.ToString())
+                {
+                    case "1":
+                        ui.PrintMaze(maze1);
+                        choice = ui.MazePrompt();
+                        break;
+                    case "2":
+                        /// <summary>
+                        /// Tell the instance to solve the first maze with the passed maze, and start coordinates.
+                        /// </summary>
+                        mazeSolver.SolveMaze(maze1, X_START, Y_START);
+                        choice = ui.MazePrompt();
+                        break;
+                    case "3":
+                        maze2 = transposeMaze(maze1);
+                        ui.PrintMaze(maze2);
+                        choice = ui.MazePrompt();
+                        break;
+                    case "4":
+                        //Solve the transposed maze.
+                        mazeSolver.SolveMaze(maze2, X_START, Y_START);
+                        choice = ui.MazePrompt();
+                        break;
+                    case "5":
+                        break;
+                    default:
+                        Console.WriteLine("Error. Please select a valid number.");
+                        choice = ui.MazePrompt();
+                        break;
+                }
+            }
         }
 
         /// <summary>
@@ -77,8 +110,21 @@ namespace cis237assignment2
         /// <returns>transposedMaze</returns>
         static char[,] transposeMaze(char[,] mazeToTranspose)
         {
-            //Write code her to create a transposed maze.
-            return new char[1, 1];
+            //Write code here to create a transposed maze.
+            int a = 0;                                          //creates a buffer to store the value of the y-axis
+            int b = 0;                                          //creates a buffer to store the value of the x-axis
+            char[,] newMaze = new char[12, 12];                 //creates a buffer to store the transposed array so I don't have to overwrite the existing array
+            while (a <= 11)                                     //while loop to check every memeber in the y-axis
+            {
+                while (b <= 11)                                 //while loop to check every member of the x-axis
+                {
+                    newMaze[a, b] = mazeToTranspose[b, a];      //the actual transposition; the axes are swapped for the new array
+                    b++;                                        //increments b by one so that every member of one x-axis is read
+                }
+                a++;                                            //increments a by one so that every member of one y-axis is read
+                b = 0;                                          //resets b so that the index will not be out of range when the program goes back in the x-axis while loop and that the loop will be entered in the first place
+            }
+            return newMaze;                                     //returns the value of the new maze
         }
     }
 }
